@@ -18,6 +18,13 @@ pipeline {
                 always {
                     junit '*target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
+                // }
+                // changed {
+                    emailext attachLog: true,
+                    body: "Please go to ${BUILD_URL} and verify the build",
+                    compressLog: true,
+                    subject: "Job \'${JOB_NAME}\' (${BUILD_NUMBER}) ${currentBuild.result}",
+                    to: 'bert.melanie@gmail.com'
                 }
             }
         }
